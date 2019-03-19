@@ -3,8 +3,10 @@ package test.jsp.study.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +31,11 @@ public class UserServlet extends HttpServlet {
 			pw.print("커맨드 없는 요청은 정상적인 요청이 아닙니다.");
 		} else {
 			if ("users".equals(cmd)) {
-				pw.print(us.selectUserList(null));
+				List<Map<String,String>> userList = us.selectUserList(null);
+				RequestDispatcher rd = request.getRequestDispatcher("/tag/lib01.jsp");
+				request.setAttribute("userList",us.selectUserList(null));
+				rd.forward(request,response);
+				return;
 			} else if ("user".equals(cmd)) {
 				String uiNum = request.getParameter("ui_num");
 				if (uiNum == null || "".equals(uiNum)) {
@@ -62,7 +68,11 @@ public class UserServlet extends HttpServlet {
 				int cnt = us.insertUser(user);
 				String result = "등록 실패";
 				if(cnt==1) {
-					result = "등록 완료";
+					List<Map<String,String>> userList = us.selectUserList(null);
+					RequestDispatcher rd = request.getRequestDispatcher("/tag/lib01.jsp");
+					request.setAttribute("userList",us.selectUserList(null));
+					rd.forward(request,response);
+					return;
 				}
 				pw.println(result);
 			} else if ("update".equals(cmd)) {
