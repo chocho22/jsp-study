@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="div1">배고파</div>
+<input type="text" id="userId" onkeyup="test2()">
+<button onclick="test1()">알림!</button>
+<script>
+	div1.innerHTML += "<br>나나나";
+	div1.innerHTML += "<br>너너너";
+	for(var i=1;i<=10;i++) {
+		div1.innerHTML += "<br>"+i;
+	}
+	for(var i=1;i<=10;i++) {
+		if(i%2==0) {
+			div1.innerHTML += "<br>"+i;
+		}
+	}
+	function test1() {
+		alert("날 클릭했군");
+	}
+	function test2() {
+		div1.innerHTML = userId.value;
+	}
+</script>
+</body>
+</html>
